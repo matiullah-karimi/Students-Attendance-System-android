@@ -37,6 +37,8 @@ public class Students extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_students);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         final String class_id = getIntent().getStringExtra("class_id");
         final String subject_id = getIntent().getStringExtra("subject_id");

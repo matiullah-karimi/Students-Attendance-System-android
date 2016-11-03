@@ -98,7 +98,6 @@ public class MainActivity extends AppCompatActivity {
                         public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                             super.onFailure(statusCode, headers, throwable, errorResponse);
                             pDialog.hide();
-                            Log.d("errorResponse", errorResponse.toString());
 
                             try {
                                 String error = errorResponse.getString("error");

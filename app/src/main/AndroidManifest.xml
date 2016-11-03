@@ -18,12 +18,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Classes" />
-        <activity android:name=".Subjects" />
+        <activity android:name=".Classes"
+            android:label="Classes"/>
+        <activity android:name=".Subjects"
+            android:label="Subjects"/>
         <activity
             android:name=".Students"
             android:label="@string/title_activity_students"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            ></activity>
     </application>
 
 </manifest>
