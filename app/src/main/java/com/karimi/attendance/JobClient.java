@@ -25,7 +25,7 @@ import cz.msebera.android.httpclient.protocol.HTTP;
 public class JobClient {
     Context context;
 
-    private static final String API_BASE_URL = "http://172.30.10.147:8080/api/teacher";
+    private static final String API_BASE_URL = "http://172.30.10.153:8080/api/teacher";
     private AsyncHttpClient client;
 
     public JobClient() {

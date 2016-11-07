@@ -8,8 +8,10 @@ import android.net.NetworkInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,6 +21,8 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.HashMap;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -32,6 +36,21 @@ public class MainActivity extends AppCompatActivity {
     private TextView errorText;
 
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        try {
+            sessionManager = new SessionManager(this);
+            HashMap<String, String> user_token = sessionManager.getUserDetails();
+            String token = user_token.get(sessionManager.KEY_TOKEN);
+            if (token.length() > 0) {
+                Intent intent = new Intent(MainActivity.this, Classes.class);
+                startActivity(intent);
+            }
+        }catch (NullPointerException ex){
+            ex.printStackTrace();
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,22 +95,18 @@ public class MainActivity extends AppCompatActivity {
 
                             if (response.has("token")) {
                                 try {
+
                                     String token = response.getString("token");
                                     sessionManager.createLoginSession(email, token);
 
                                     Intent intent = new Intent(MainActivity.this, Classes.class);
                                     startActivity(intent);
-                                    finish();
+
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
                             }
 
-                        }
-
-                        @Override
-                        public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                            super.onFailure(statusCode, headers, responseString, throwable);
                         }
 
                         @Override
@@ -108,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
                                 else {
                                     errorText.setText("Something went wrong, please try again ");
                                 }
-                            } catch (JSONException e) {
+                            } catch (Exception e) {
                                 e.printStackTrace();
                             }
                         }
@@ -130,5 +145,10 @@ public class MainActivity extends AppCompatActivity {
             isNetworkAvailable = true;
         }
         return isNetworkAvailable;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return super.onCreateOptionsMenu(menu);
     }
 }

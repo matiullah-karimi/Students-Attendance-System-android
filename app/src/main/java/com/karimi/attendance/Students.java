@@ -132,7 +132,11 @@ public class Students extends AppCompatActivity {
                         Log.d("saveResult", response.toString());
                         super.onSuccess(statusCode, headers, response);
 
-                        Toast.makeText(Students.this, "Succesfully Submitted!!!", Toast.LENGTH_LONG).show();
+                        try {
+                            Toast.makeText(Students.this, response.getString("message"), Toast.LENGTH_LONG).show();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
 
 
